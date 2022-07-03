@@ -10,8 +10,17 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 }
+
+/**
+ * Using dependency catalogs requires the activation
+ * of the matching feature preview. Peek uses TOML catalogs
+ * so we activate the version catalogs feature preview here
+ */
+enableFeaturePreview("VERSION_CATALOGS")
+
 rootProject.name = "Peek"
 include ':app'
 include ':core-resources'

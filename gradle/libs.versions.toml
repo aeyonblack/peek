@@ -1,0 +1,9 @@
+[versions]
+compose-compiler = '1.2.0'
+
+[libraries]
+
+[plugins]
+
+[bundles]
+
