@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Peek</string>
+
+    <string name="camera_permission">Camera Permission</string>
+    <string name="camera_permission_rationale">
+        This app requires access to your camera inorder to work. Please grant permissions.
+    </string>
+
+    <string name="button_ok">OK</string>
+
+    <string name="scan_text">Scan Text</string>
+
+</resources>

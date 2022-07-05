@@ -43,6 +43,11 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.bundles.accompanist)
 
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+
+    implementation(libs.accompanist.permission)
+
     implementation(libs.glide)
     kapt(libs.glide.compiler)
 

@@ -34,6 +34,11 @@ dependencies {
     implementation project(':core-resources')
     implementation project(':core-ui')
 
+    implementation(libs.accompanist.permission)
+
     implementation(libs.bundles.compose)
     implementation(libs.bundles.accompanist)
+    implementation(libs.bundles.camerax)
+
+    debugImplementation(libs.compose.ui.ui.tooling)
 }

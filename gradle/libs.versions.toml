@@ -1,6 +1,7 @@
 [versions]
 accompanist = '0.24.11-rc'
 activity-compose = '1.5.0'
+camerax = '1.1.0'
 compose-compiler = '1.2.0'
 compose = '1.1.1'
 compose-navigation = '2.5.0'
@@ -20,6 +21,10 @@ androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "runtime-ktx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
+
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camerax" }
+androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "camerax" }
+androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "camerax" }
 
 # ---------------------------------------KOTLIN-----------------------------------------------------
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
@@ -54,6 +59,7 @@ accompanist-navigation-material = {module = "com.google.accompanist:accompanist-
 accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
 accompanist-pager-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
 accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist" }
+accompanist-permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 
 # ---------------------------------------JUNIT & ESPRESSO-------------------------------------------
 junit-junit = { module = "junit:junit", version.ref = "junit" }
@@ -63,6 +69,7 @@ espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref =
 # ---------------------------------------GLIDE------------------------------------------------------
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide"}
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide"}
+
 
 [bundles]
 compose = [
@@ -82,5 +89,10 @@ accompanist = [
     'accompanist-insetsui',
     'accompanist-navigation-animation',
     'accompanist-navigation-material'
+]
+camerax = [
+    'androidx-camera-camera2',
+    'androidx-camera-lifecycle',
+    'androidx-camera-view'
 ]
 
