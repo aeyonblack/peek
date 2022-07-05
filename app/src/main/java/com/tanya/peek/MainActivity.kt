@@ -6,24 +6,20 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.tanya.peek.ui.theme.PeekTheme
+import androidx.core.view.WindowCompat
+import com.tanya.core_ui.theme.PeekTheme
+import com.tanya.peek.ui.PeekApp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Turn of the decor view to manually handle insets for an edge to edge display
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         setContent {
-            PeekTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                }
-            }
+            PeekApp()
         }
     }
 }

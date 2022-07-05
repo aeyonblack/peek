@@ -13,6 +13,9 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core-resources" />
             <option value="$PROJECT_DIR$/core-ui" />
+            <option value="$PROJECT_DIR$/feature-image-capture" />
+            <option value="$PROJECT_DIR$/feature-image-scan" />
+            <option value="$PROJECT_DIR$/feature-scan-history" />
           </set>
         </option>
       </GradleProjectSettings>

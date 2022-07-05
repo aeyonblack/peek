@@ -1,4 +1,4 @@
-package com.tanya.peek.ui.theme
+package com.tanya.core_ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

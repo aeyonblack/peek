@@ -25,3 +25,6 @@ rootProject.name = "Peek"
 include ':app'
 include ':core-resources'
 include ':core-ui'
+include ':feature-image-capture'
+include ':feature-image-scan'
+include ':feature-scan-history'

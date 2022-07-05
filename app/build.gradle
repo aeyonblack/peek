@@ -47,6 +47,10 @@ dependencies {
     implementation project(':core-resources')
     implementation project(':core-ui')
 
+    implementation project(':feature-image-capture')
+    implementation project(':feature-image-scan')
+    implementation project(':feature-scan-history')
+
     implementation(libs.androidx.core.ktx)
 
     implementation(libs.bundles.compose)
