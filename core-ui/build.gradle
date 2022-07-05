@@ -1,22 +1,18 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
     compileSdk buildConfig.compileSdk
 
     defaultConfig {
-        applicationId "com.tanya.peek"
         minSdk buildConfig.minSdk
         targetSdk buildConfig.targetSdk
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -35,31 +31,21 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
     }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
 }
 
 dependencies {
 
     implementation project(':core-resources')
-    implementation project(':core-ui')
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.kotlin.stdlib)
 
     implementation(libs.bundles.compose)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.navigation.compose)
-
     implementation(libs.bundles.accompanist)
 
-    testImplementation(libs.junit.junit)
-    androidTestImplementation(libs.androidx.test.junit)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.compose.ui.test)
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
 
-    debugImplementation(libs.compose.ui.ui.tooling)
-    debugImplementation(libs.compose.ui.test.manifest)
+    api(libs.androidx.lifecycle.runtime.ktx)
+
 }

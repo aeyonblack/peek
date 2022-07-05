@@ -1,4 +1,4 @@
-package com.tanya.core_resources
+package com.tanya.core_ui
 
 import org.junit.Test
 

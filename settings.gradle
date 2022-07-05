@@ -24,3 +24,4 @@ enableFeaturePreview("VERSION_CATALOGS")
 rootProject.name = "Peek"
 include ':app'
 include ':core-resources'
+include ':core-ui'
