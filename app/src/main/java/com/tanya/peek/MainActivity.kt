@@ -10,7 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import com.tanya.core_ui.theme.PeekTheme
 import com.tanya.peek.ui.PeekApp
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

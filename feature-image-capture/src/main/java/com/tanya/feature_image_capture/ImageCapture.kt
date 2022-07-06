@@ -2,42 +2,36 @@ package com.tanya.feature_image_capture
 
 import android.content.Context
 import android.util.Log
-import android.view.ViewGroup
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
 import androidx.camera.core.Preview
 import androidx.camera.core.UseCase
-import androidx.camera.view.PreviewView
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LifecycleOwner
 import com.tanya.core_resources.R
+import com.tanya.core_ui.components.DarkSystemBars
 import com.tanya.core_ui.components.PreviewContainer
 import com.tanya.core_ui.extensions.executor
 import com.tanya.core_ui.extensions.getCameraProvider
 import com.tanya.core_ui.extensions.takePicture
 import com.tanya.core_ui.permissions.CameraPermission
-import com.tanya.core_ui.theme.peek_yellow
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -45,6 +39,7 @@ import java.io.File
 fun ImageCapture(
     onImageCapture: (File) -> Unit
 ) {
+    DarkSystemBars()
     ImageCapture(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -198,31 +193,4 @@ internal fun CameraPreview(
             }
         }
     }
-}
-
-
-@Composable
-internal fun CameraPreviewSurface(
-    modifier: Modifier = Modifier,
-    scaleType: PreviewView.ScaleType = PreviewView.ScaleType.FILL_CENTER,
-    onUseCase: (UseCase) -> Unit
-) {
-    AndroidView(
-        modifier = modifier,
-        factory = { context ->
-            val previewView = PreviewView(context).apply {
-                this.scaleType = scaleType
-                layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-                )
-            }
-            onUseCase(
-                Preview.Builder()
-                    .build()
-                    .also { it.setSurfaceProvider(previewView.surfaceProvider) }
-            )
-            previewView
-        }
-    )
 }

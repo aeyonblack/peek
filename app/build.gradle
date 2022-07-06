@@ -1,6 +1,13 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+kapt {
+    correctErrorTypes true
+    useBuildCache true
 }
 
 android {
@@ -58,6 +65,12 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.bundles.accompanist)
+
+    implementation(libs.hilt.library)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    kapt(libs.hilt.compiler)
+    kapt(libs.androidx.hilt.compiler)
 
     testImplementation(libs.junit.junit)
     androidTestImplementation(libs.androidx.test.junit)

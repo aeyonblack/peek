@@ -1,7 +1,10 @@
 [versions]
 accompanist = '0.24.11-rc'
 activity-compose = '1.5.0'
+androidx-hilt = '1.0.0'
+androidx-lifecycle = '2.5.0'
 camerax = '1.1.0'
+coil = '2.1.0'
 compose-compiler = '1.2.0'
 compose = '1.1.1'
 compose-navigation = '2.5.0'
@@ -10,21 +13,29 @@ coroutines = '1.6.3'
 espresso = '3.4.0'
 ext-junit = '1.1.3'
 glide = '4.13.2'
+hilt = '2.42'
 junit = '4.13.2'
 kotlin = '1.7.0'
-runtime-ktx = '2.5.0'
 
 
 [libraries]
 # ---------------------------------------ANDROIDX---------------------------------------------------
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
-androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "runtime-ktx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
 
 androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camerax" }
 androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "camerax" }
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "camerax" }
+
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+
+androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt" }
+
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
 # ---------------------------------------KOTLIN-----------------------------------------------------
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
@@ -61,6 +72,11 @@ accompanist-pager-pager = { module = "com.google.accompanist:accompanist-pager",
 accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist" }
 accompanist-permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 
+
+hilt-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
+hilt-library = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+
 # ---------------------------------------JUNIT & ESPRESSO-------------------------------------------
 junit-junit = { module = "junit:junit", version.ref = "junit" }
 androidx-test-junit = { module = "androidx.test.ext:junit", version.ref = "ext-junit" }
@@ -72,6 +88,11 @@ glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = 
 
 
 [bundles]
+androidx-lifecycle = [
+    'androidx-lifecycle-runtime-ktx',
+    'androidx-lifecycle-viewmodel-ktx',
+    'androidx-lifecycle-viewmodel-compose'
+]
 compose = [
     'compose-ui-ui',
     'compose-material-material',

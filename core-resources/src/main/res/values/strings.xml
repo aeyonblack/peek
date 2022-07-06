@@ -8,7 +8,20 @@
     </string>
 
     <string name="button_ok">OK</string>
+    <string name="button_save">Save Scan</string>
 
     <string name="scan_text">Scan Text</string>
+
+    <string name="scanning_text">Scanning Text</string>
+    <string name="scan_results">Scan Results</string>
+
+    <string name="placeholder_text">
+        Looking started he up perhaps against.
+        How remainder all additions get elsewhere resources.
+        One missed shy wishes supply design answer formed.
+        Prevent on present hastily passage an subject in be.
+        Be happiness arranging so newspaper defective affection ye.
+        Families blessing he in to no daughter.
+    </string>
 
 </resources>

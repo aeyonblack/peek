@@ -11,7 +11,6 @@ import androidx.navigation.compose.rememberNavController
  */
 sealed class Screen(val route: String) {
     object ImageCapture: Screen("image_capture")
-    object ImageScan: Screen("image_scan")
     object ScanHistory: Screen("scan_history")
 }
 
@@ -23,8 +22,11 @@ sealed class LeafScreen(private val route: String) {
     fun createRoute(root: Screen) = "${root.route}/$route"
 
     object ImageCapture: LeafScreen("image_capture")
-    object ImageScan: LeafScreen("image_scan")
     object ScanHistory: LeafScreen("scan_history")
+
+    object ImageScan: LeafScreen("scan/{imageUri}") {
+        fun createRoute(root: Screen, imageUri: String) = "${root.route}/scan/$imageUri"
+    }
 
 }
 
