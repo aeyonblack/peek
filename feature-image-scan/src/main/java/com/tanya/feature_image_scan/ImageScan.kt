@@ -5,11 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DragIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,17 +19,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.tanya.core_resources.R
 import com.tanya.core_ui.components.LightNavBars
 import com.tanya.core_ui.components.PreviewContainer
 import com.tanya.core_ui.theme.light_gray
-import com.tanya.core_ui.theme.peek_yellow
-import kotlinx.coroutines.launch
 
 @Composable
 fun ImageScan() {

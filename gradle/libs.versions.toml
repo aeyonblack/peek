@@ -16,9 +16,17 @@ glide = '4.13.2'
 hilt = '2.42'
 junit = '4.13.2'
 kotlin = '1.7.0'
+mlkit ='18.0.0'
 
 
 [libraries]
+
+mlkit-text-recognition = { module = "com.google.android.gms:play-services-mlkit-text-recognition", version.ref = "mlkit" }
+mlkit-text-recognition-chinese = { module = "com.google.android.gms:play-services-mlkit-text-recognition-chinese", version.ref = "mlkit" }
+mlkit-text-recognition-devanagari = { module = "com.google.android.gms:play-services-mlkit-text-recognition-devanagari", version.ref = "mlkit" }
+mlkit-text-recognition-japanese = { module = "com.google.android.gms:play-services-mlkit-text-recognition-japanese", version.ref = "mlkit" }
+mlkit-text-recognition-korean = { module = "com.google.android.gms:play-services-mlkit-text-recognition-korean", version.ref = "mlkit" }
+
 # ---------------------------------------ANDROIDX---------------------------------------------------
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
@@ -88,6 +96,13 @@ glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = 
 
 
 [bundles]
+mlkit-text-recognition = [
+    'mlkit-text-recognition',
+    'mlkit-text-recognition-devanagari',
+    'mlkit-text-recognition-chinese',
+    'mlkit-text-recognition-japanese',
+    'mlkit-text-recognition-korean',
+]
 androidx-lifecycle = [
     'androidx-lifecycle-runtime-ktx',
     'androidx-lifecycle-viewmodel-ktx',
