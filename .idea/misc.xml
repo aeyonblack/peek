@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2085" />
+        <entry key="core-resources/src/main/res/drawable-xhdpi/peek_transparent_logo.xml" value="0.2085" />
+        <entry key="core-resources/src/main/res/drawable-xxhdpi/search_text.xml" value="0.2085" />
         <entry key="core-resources/src/main/res/drawable/cam_prev.xml" value="0.2085" />
         <entry key="core-resources/src/main/res/drawable/camera_preview_foreground.xml" value="0.2085" />
         <entry key="core-resources/src/main/res/drawable/preview_foreground.xml" value="0.2085" />

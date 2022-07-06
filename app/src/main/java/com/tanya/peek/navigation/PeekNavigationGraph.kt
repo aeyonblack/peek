@@ -23,6 +23,10 @@ fun NavGraphBuilder.addImageCaptureTopLevel(
             navController = navController,
             root = Screen.ImageCapture
         )
+        addImageScan(
+            navController = navController,
+            root = Screen.ImageCapture
+        )
     }
 }
 
@@ -31,6 +35,17 @@ fun NavGraphBuilder.addImageCapture(
     root: Screen
 ) {
     composable(LeafScreen.ImageCapture.createRoute(root)) {
-        ImageCapture()
+        ImageCapture {
+            // navigate to image scan and pass image as argument
+        }
+    }
+}
+
+fun NavGraphBuilder.addImageScan(
+    navController: NavController,
+    root: Screen
+) {
+    composable(LeafScreen.ImageScan.createRoute(root)) {
+
     }
 }
