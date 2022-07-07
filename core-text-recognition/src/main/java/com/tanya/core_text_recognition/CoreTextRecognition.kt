@@ -3,7 +3,7 @@ import android.util.Log
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import com.tanya.core_model.TextScanResult
+import com.tanya.core_model.entity.TextScanResult
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.resume

@@ -1,17 +1,14 @@
 package com.tanya.feature_image_scan
 
-import android.content.Context
 import androidx.core.net.toUri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.mlkit.vision.common.InputImage
 import com.tanya.core_domain.usescases.ScanTextFromImageUseCase
 import com.tanya.core_domain.usescases.ScanTextFromImageUseCase.Params
-import com.tanya.core_model.TextScanResult
+import com.tanya.core_model.entity.TextScanResult
 import com.tanya.core_ui.util.ObservableLoadingCounter
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject

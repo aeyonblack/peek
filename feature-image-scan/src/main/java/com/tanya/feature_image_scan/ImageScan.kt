@@ -20,7 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
-import com.tanya.core_model.TextScanResult
+import com.tanya.core_model.entity.TextScanResult
 import com.tanya.core_resources.R
 import com.tanya.core_ui.components.BottomSheetLayout
 import com.tanya.core_ui.components.LightNavBars

@@ -1,7 +1,7 @@
 package com.tanya.feature_image_scan
 
 import androidx.compose.runtime.Immutable
-import com.tanya.core_model.TextScanResult
+import com.tanya.core_model.entity.TextScanResult
 
 @Immutable
 data class ImageScanViewState(
