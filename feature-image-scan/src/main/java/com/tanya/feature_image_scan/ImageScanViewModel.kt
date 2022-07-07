@@ -4,6 +4,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tanya.core_domain.usescases.SaveScanUseCase
 import com.tanya.core_domain.usescases.ScanTextFromImageUseCase
 import com.tanya.core_domain.usescases.ScanTextFromImageUseCase.Params
 import com.tanya.core_model.entity.TextScanResult
@@ -17,6 +18,7 @@ import javax.inject.Inject
 class ImageScanViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val scanTextFromImageUseCase: ScanTextFromImageUseCase,
+    private val saveScanUseCase: SaveScanUseCase
 ): ViewModel() {
 
     private val imageUri: String? = savedStateHandle["imageUri"]
@@ -56,5 +58,11 @@ class ImageScanViewModel @Inject constructor(
     }
 
     fun decodeImageUri() = imageUri?.replace("(", "/")?.toUri()
+
+    fun saveScan(scan: TextScanResult) {
+        viewModelScope.launch {
+            saveScanUseCase(SaveScanUseCase.Params(scan))
+        }
+    }
 
 }

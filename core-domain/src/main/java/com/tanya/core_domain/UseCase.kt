@@ -4,14 +4,14 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 
-abstract class PlainUseCase<in P, R> {
+abstract class UseCase<in P> {
     suspend operator fun invoke(
         params: P
     ) {
         doWork(params)
     }
 
-    protected abstract suspend fun doWork(params: P): R
+    protected abstract suspend fun doWork(params: P)
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)

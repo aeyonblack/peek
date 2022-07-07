@@ -1,11 +1,10 @@
 package com.tanya.peek.navigation
 
-import android.util.Log
-import androidx.core.net.toUri
 import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.tanya.feature_image_capture.ImageCapture
 import com.tanya.feature_image_scan.ImageScan
+import com.tanya.feature_scan_history.ScanHistory
 
 /**
  * Defines the navigation graph, a set of screens
@@ -28,6 +27,10 @@ fun NavGraphBuilder.addImageCaptureTopLevel(
             navController = navController,
             root = Screen.ImageCapture
         )
+        addScanHistory(
+            navController = navController,
+            root = Screen.ImageCapture
+        )
     }
 }
 
@@ -36,16 +39,24 @@ fun NavGraphBuilder.addImageCapture(
     root: Screen
 ) {
     composable(LeafScreen.ImageCapture.createRoute(root)) {
-        ImageCapture {
+        ImageCapture(
+            openScanHistory = {
+                navController.navigate(LeafScreen.ScanHistory.createRoute(root)) {
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            }
+        ) {
             // navigate to image scan and pass image as argument
             val imageUri = it.toURI().toString().replace("/","(")
-            navController.navigate(LeafScreen.ImageScan.createRoute(root, imageUri))
-            Log.d("Image Capture", it.absolutePath)
+            navController.navigate(LeafScreen.ImageScan.createRoute(root, imageUri)) {
+                launchSingleTop = true
+                restoreState = true
+            }
         }
     }
 }
 
-// Todo - figure out how to pass the correct navigation destination
 fun NavGraphBuilder.addImageScan(
     navController: NavController,
     root: Screen
@@ -56,6 +67,23 @@ fun NavGraphBuilder.addImageScan(
             navArgument("imageUri") { type = NavType.StringType }
         )
     ) {
-        ImageScan()
+        ImageScan {
+            navController.navigate(LeafScreen.ScanHistory.createRoute(root)) {
+                popUpTo(LeafScreen.ImageScan.createRoute(root)) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        }
+    }
+}
+
+fun NavGraphBuilder.addScanHistory(
+    navController: NavController,
+    root: Screen
+) {
+    composable(LeafScreen.ScanHistory.createRoute(root)) {
+        ScanHistory(navigateUp = navController::navigateUp)
     }
 }

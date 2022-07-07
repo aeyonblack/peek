@@ -1,6 +1,7 @@
 package com.tanya.feature_image_capture
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -24,7 +25,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleOwner
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import coil.size.Size
+import com.tanya.core_model.entity.TextScanResult
 import com.tanya.core_resources.R
 import com.tanya.core_ui.components.DarkSystemBars
 import com.tanya.core_ui.components.PreviewContainer
@@ -32,15 +39,18 @@ import com.tanya.core_ui.extensions.executor
 import com.tanya.core_ui.extensions.getCameraProvider
 import com.tanya.core_ui.extensions.takePicture
 import com.tanya.core_ui.permissions.CameraPermission
+import com.tanya.core_ui.util.rememberFlowWithLifeCycle
 import kotlinx.coroutines.launch
 import java.io.File
 
 @Composable
 fun ImageCapture(
+    openScanHistory: () -> Unit,
     onImageCapture: (File) -> Unit
 ) {
     DarkSystemBars()
     ImageCapture(
+        openScanHistory = openScanHistory,
         modifier = Modifier.fillMaxSize()
     ) {
         onImageCapture(it)
@@ -50,10 +60,18 @@ fun ImageCapture(
 @Composable
 internal fun ImageCapture(
     modifier: Modifier = Modifier,
+    viewModel: ImageCaptureViewModel = hiltViewModel(),
+    openScanHistory: () -> Unit,
     onImageCapture: (File) -> Unit
 ) {
+    val state = rememberFlowWithLifeCycle(flow = viewModel.state)
+        .collectAsState(initial = ImageCaptureViewState.Empty).value
     CameraPermission {
-        ImageCaptureContent {
+        ImageCaptureContent(
+            openScanHistory = openScanHistory,
+            modifier = modifier,
+            scans = state.scans
+        ) {
             onImageCapture(it)
         }
     }
@@ -62,10 +80,15 @@ internal fun ImageCapture(
 @Composable
 internal fun ImageCaptureContent(
     modifier: Modifier = Modifier,
+    openScanHistory: () -> Unit,
+    scans: List<TextScanResult>,
     context: Context = LocalContext.current,
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     onImageCapture: (File) -> Unit
 ) {
+
+    val imageUri = if (scans.isEmpty()) null else scans[0].imageUri.toUri()
+
     Box(
         modifier = modifier
     ) {
@@ -87,6 +110,8 @@ internal fun ImageCaptureContent(
         ) {
             CameraPreview(
                 modifier = Modifier.matchParentSize(),
+                openScanHistory = openScanHistory,
+                imageUri = imageUri,
                 onImageCapture = {
                     coroutineScope.launch {
                         onImageCapture(imageCaptureUseCase.takePicture(context.executor))
@@ -119,9 +144,24 @@ internal fun ImageCaptureContent(
 @Composable
 internal fun CameraPreview(
     modifier: Modifier = Modifier,
+    imageUri: Uri?,
+    openScanHistory: () -> Unit,
     onImageCapture: () -> Unit,
     onUseCase: (UseCase) -> Unit
 ) {
+    val context = LocalContext.current
+    val painter = if (imageUri != null) {
+        rememberAsyncImagePainter(
+            model = ImageRequest
+                .Builder(context)
+                .data(imageUri)
+                .size(Size.ORIGINAL)
+                .build()
+        )
+    } else {
+        painterResource(id = R.drawable.no_data_illustration)
+    }
+
     Box(
         modifier = modifier
     ) {
@@ -149,13 +189,15 @@ internal fun CameraPreview(
                         color = Color.White,
                         shape = RoundedCornerShape(12.dp)
                     ),
-                color = Color.White
+                color = Color.White,
+                onClick = { openScanHistory() }
             ) {
                 Box {
                     Image(
-                        painter = painterResource(id = R.drawable.test_img),
+                        painter = painter,
                         contentDescription = null,
-                        contentScale = ContentScale.Crop
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
                     )
                     Surface(
                         modifier = Modifier.matchParentSize(),

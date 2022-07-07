@@ -21,6 +21,21 @@ fun DarkSystemBars() {
 }
 
 @Composable
+fun LightSystemBars() {
+    val systemUiController = rememberSystemUiController()
+    SideEffect {
+        systemUiController.setNavigationBarColor(
+            color = Color.White,
+            darkIcons = true
+        )
+        systemUiController.setStatusBarColor(
+            color = Color.White,
+            darkIcons = true
+        )
+    }
+}
+
+@Composable
 fun LightNavBars() {
     val systemUiController = rememberSystemUiController()
 

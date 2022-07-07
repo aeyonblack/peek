@@ -21,6 +21,7 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import com.tanya.core_model.entity.TextScanResult
+import com.tanya.core_model.utils.getCurrentDateTime
 import com.tanya.core_resources.R
 import com.tanya.core_ui.components.BottomSheetLayout
 import com.tanya.core_ui.components.LightNavBars
@@ -30,15 +31,20 @@ import com.tanya.core_ui.util.rememberFlowWithLifeCycle
 import kotlinx.coroutines.launch
 
 @Composable
-fun ImageScan() {
+fun ImageScan(
+    openScanHistory: () -> Unit
+) {
     LightNavBars()
-    MainImageScan(viewModel = hiltViewModel())
+    MainImageScan(viewModel = hiltViewModel()) {
+        openScanHistory()
+    }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun MainImageScan(
-    viewModel: ImageScanViewModel
+    viewModel: ImageScanViewModel,
+    openScanHistory: () -> Unit
 ) {
     val bottomSheetState = rememberBottomSheetScaffoldState()
     val scope = rememberCoroutineScope()
@@ -51,6 +57,8 @@ internal fun MainImageScan(
             ScanResult(
                 state = state,
                 scanResult = scanResult,
+                viewModel = viewModel,
+                openScanHistory = openScanHistory,
                 onCloseSheet = {
                     scope.launch {
                         bottomSheetState.bottomSheetState.collapse()
@@ -79,8 +87,10 @@ internal fun MainImageScan(
 @Composable
 fun ScanResult(
     modifier: Modifier = Modifier,
+    viewModel: ImageScanViewModel,
     state: ImageScanViewState,
     scanResult: TextScanResult,
+    openScanHistory: () -> Unit,
     onCloseSheet: () -> Unit,
     onScanComplete: () -> Unit,
 ) {
@@ -145,7 +155,15 @@ fun ScanResult(
                 buttonText = bottomSheetAction.actionText
             ) {
                 when (bottomSheetAction) {
-                    is BottomSheetAction.Keep -> {}
+                    is BottomSheetAction.Keep -> {
+                        viewModel.saveScan(
+                            scanResult.copy(
+                                dateCreated = getCurrentDateTime(),
+                                imageUri = viewModel.decodeImageUri()!!.toString()
+                            )
+                        )
+                        openScanHistory()
+                    }
                     else -> onCloseSheet()
                 }
             }
