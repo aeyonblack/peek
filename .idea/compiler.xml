@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="Peek.app" target="11" />
+      <module name="Peek.core-database" target="11" />
       <module name="Peek.core-domain" target="11" />
       <module name="Peek.core-resources" target="11" />
       <module name="Peek.core-text-recognition" target="11" />
