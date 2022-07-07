@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="Peek.app" target="11" />
+      <module name="Peek.core-domain" target="11" />
+      <module name="Peek.core-resources" target="11" />
+      <module name="Peek.core-text-recognition" target="11" />
+      <module name="Peek.core-ui" target="11" />
+      <module name="Peek.feature-image-capture" target="11" />
+      <module name="Peek.feature-image-scan" target="11" />
+      <module name="Peek.feature-scan-history" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

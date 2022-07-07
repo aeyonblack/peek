@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -17,11 +16,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
+import com.tanya.core_model.TextScanResult
 import com.tanya.core_resources.R
 import com.tanya.core_ui.components.BottomSheetLayout
 import com.tanya.core_ui.components.LightNavBars
@@ -45,14 +44,23 @@ internal fun MainImageScan(
     val scope = rememberCoroutineScope()
     val state = rememberFlowWithLifeCycle(flow = viewModel.state)
         .collectAsState(initial = ImageScanViewState.Empty).value
-    val scanResult = viewModel.scanResult.collectAsState(initial = "").value
+    val scanResult = viewModel.scanResult.collectAsState(initial = TextScanResult.Default).value
 
     BottomSheetScaffold(
         sheetContent = {
-            TextScanResult(
+            ScanResult(
                 state = state,
-                scanResult = scanResult
-            )
+                scanResult = scanResult,
+                onCloseSheet = {
+                    scope.launch {
+                        bottomSheetState.bottomSheetState.collapse()
+                    }
+                }
+            ) {
+                scope.launch {
+                    bottomSheetState.bottomSheetState.expand()
+                }
+            }
         },
         scaffoldState = bottomSheetState,
         sheetBackgroundColor = Color.White,
@@ -66,42 +74,36 @@ internal fun MainImageScan(
         )
     }
 
-    LaunchedEffect(null) {
-        if (!state.loading &&  state.scanResult.isEmpty()) {
-            scope.launch {
-                bottomSheetState.bottomSheetState.expand()
-            }
-        }
-    }
 }
 
 @Composable
-fun TextScanResult(
+fun ScanResult(
     modifier: Modifier = Modifier,
     state: ImageScanViewState,
-    scanResult: String
+    scanResult: TextScanResult,
+    onCloseSheet: () -> Unit,
+    onScanComplete: () -> Unit,
 ) {
     val title = when {
-        state.loading -> stringResource(id = R.string.scanning_text)
+        !scanResult.success -> stringResource(id = R.string.scanning_text)
         else -> {
             when {
-                scanResult.isNotEmpty() -> stringResource(id = R.string.scan_results)
+                scanResult.text.isNotBlank() -> stringResource(id = R.string.scan_results)
                 else -> stringResource(id = R.string.text_not_found)
             }
         }
     }
-    val text = when {
-        state.scanResult.isNotEmpty() -> scanResult
-        else -> stringResource(id = R.string.text_not_found_message)
+    var text = stringResource(id = R.string.text_not_found_message)
+    var height = 150.dp
+    var painter = R.drawable.no_data_illustration
+    var bottomSheetAction: BottomSheetAction = BottomSheetAction.Close
+    if (scanResult.text.isNotBlank()) {
+        text = scanResult.text
+        height = 110.dp
+        painter = R.drawable.scan_result
+        bottomSheetAction = BottomSheetAction.Keep
     }
-    val height = when {
-        scanResult.isNotEmpty() -> 110.dp
-        else -> 150.dp
-    }
-    val painter = when {
-        scanResult.isNotEmpty() -> R.drawable.scan_result
-        else -> R.drawable.no_data_illustration
-    }
+
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -125,7 +127,7 @@ fun TextScanResult(
                 style = MaterialTheme.typography.subtitle1,
                 modifier = Modifier.align(Alignment.Center)
             )
-            if (state.loading) {
+            if (!scanResult.success) {
                 LinearProgressIndicator(
                     modifier
                         .fillMaxWidth()
@@ -135,28 +137,19 @@ fun TextScanResult(
             }
         }
         Spacer(modifier = Modifier.height(8.dp))
-        if (!state.loading) {
+        if (scanResult.success) {
             BottomSheetLayout(
                 drawableId = painter,
                 text = text,
-                imageHeight = height
+                imageHeight = height,
+                buttonText = bottomSheetAction.actionText
             ) {
-                Button(
-                    onClick = {},
-                    elevation = null,
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color.Transparent,
-                        contentColor = MaterialTheme.colors.primary
-                    )
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.button_save),
-                        style = MaterialTheme.typography.caption,
-                        fontSize = 13.sp,
-                        modifier = Modifier.padding()
-                    )
+                when (bottomSheetAction) {
+                    is BottomSheetAction.Keep -> {}
+                    else -> onCloseSheet()
                 }
             }
+            onScanComplete()
         }
     }
 }
@@ -213,4 +206,9 @@ fun ImagePreview(
             )
         }
     }
+}
+
+sealed class BottomSheetAction(val actionText: String) {
+    object Keep : BottomSheetAction("Keep")
+    object Close: BottomSheetAction("Close")
 }

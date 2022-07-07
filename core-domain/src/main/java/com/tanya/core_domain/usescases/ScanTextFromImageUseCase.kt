@@ -6,6 +6,7 @@ import com.google.mlkit.vision.common.InputImage
 import com.tanya.core_domain.SubjectUseCase
 import com.tanya.core_domain.SuspendingWorkUseCase
 import com.tanya.core_domain.usescases.ScanTextFromImageUseCase.Params
+import com.tanya.core_model.TextScanResult
 import com.tanya.core_text_recognition.CoreTextRecognition
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +21,7 @@ import javax.inject.Singleton
 class ScanTextFromImageUseCase @Inject constructor(
     private val coreTextRecognition: CoreTextRecognition,
     @ApplicationContext val context: Context
-): SuspendingWorkUseCase<Params, String>() {
+): SuspendingWorkUseCase<Params, TextScanResult>() {
 
     override suspend fun doWork(params: Params) = withContext(Dispatchers.Default) {
         coreTextRecognition.scanTextFromImage(params.inputImage)

@@ -1,18 +1,14 @@
 package com.tanya.core_ui.components
 
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -23,8 +19,9 @@ fun BottomSheetLayout(
     modifier: Modifier = Modifier,
     @DrawableRes drawableId: Int,
     text: String,
+    buttonText: String,
     imageHeight: Dp,
-    content: @Composable () -> Unit
+    onButtonClick: () -> Unit
 ) {
     val painter = painterResource(id = drawableId)
     val ratio = painter.intrinsicSize.width/painter.intrinsicSize.height
@@ -54,6 +51,20 @@ fun BottomSheetLayout(
             modifier = Modifier.padding(horizontal = 24.dp)
         )
         Spacer(modifier = Modifier.height(8.dp))
-        content()
+        Button(
+            onClick = onButtonClick,
+            elevation = null,
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Transparent,
+                contentColor = MaterialTheme.colors.primary
+            )
+        ) {
+            Text(
+                text = buttonText,
+                style = MaterialTheme.typography.caption,
+                fontSize = 13.sp,
+                modifier = Modifier.padding()
+            )
+        }
     }
 }

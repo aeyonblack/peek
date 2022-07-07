@@ -25,6 +25,7 @@ android {
 
 dependencies {
 
+    implementation project(':core-model')
     implementation project(':core-text-recognition')
 
     implementation(libs.mlkit.text.recognition)

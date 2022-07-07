@@ -8,13 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.google.mlkit.vision.common.InputImage
 import com.tanya.core_domain.usescases.ScanTextFromImageUseCase
 import com.tanya.core_domain.usescases.ScanTextFromImageUseCase.Params
+import com.tanya.core_model.TextScanResult
 import com.tanya.core_ui.util.ObservableLoadingCounter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,7 +26,7 @@ class ImageScanViewModel @Inject constructor(
 
     private val loadingState = ObservableLoadingCounter()
 
-    val scanResult = scanTextFromImageUseCase.flow
+    val scanResult: Flow<TextScanResult> = scanTextFromImageUseCase.flow
 
     val state: StateFlow<ImageScanViewState> = combine(
         scanTextFromImageUseCase.flow,

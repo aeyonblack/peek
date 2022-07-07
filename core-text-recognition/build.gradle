@@ -25,6 +25,8 @@ android {
 
 dependencies {
 
+    implementation project(':core-model')
+
     implementation(libs.mlkit.text.recognition)
 
     implementation(libs.kotlin.stdlib)

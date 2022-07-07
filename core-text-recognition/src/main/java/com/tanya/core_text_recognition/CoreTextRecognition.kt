@@ -3,6 +3,7 @@ import android.util.Log
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import com.tanya.core_model.TextScanResult
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.resume
@@ -13,13 +14,14 @@ class CoreTextRecognition @Inject constructor() {
 
     private val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
-    suspend fun scanTextFromImage(image: InputImage): String {
+    suspend fun scanTextFromImage(image: InputImage): TextScanResult {
 
         val detectedText = mutableSetOf<String>()
 
         val completedText = suspendCoroutine { continuation ->
             recognizer.process(image).continueWith {
                 it.addOnSuccessListener { visionText ->
+                    var completedText = StringBuilder()
                     if (visionText.text.isNotBlank()) {
                         visionText.textBlocks.forEach { block ->
                             block.lines.forEach { line ->
@@ -29,18 +31,20 @@ class CoreTextRecognition @Inject constructor() {
                                 }
                             }
                         }
-                        val completedText = StringBuilder().also {
+                        completedText = StringBuilder().also {
                             detectedText.forEach { text -> it.append(text) }
                         }
-                        continuation.resume(completedText.toString())
                     }
-
+                    continuation.resume(completedText.toString())
                 }
             }
         }
 
         Log.d("CoreText", "completedText: $completedText")
 
-        return completedText
+        return TextScanResult(
+            text = completedText,
+            success = true
+        )
     }
 }
