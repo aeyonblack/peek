@@ -43,9 +43,12 @@ dependencies {
 
     implementation project(':core-ui')
     implementation project(':core-resources')
+    implementation project(':core-domain')
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlin.coroutines.core)
+
+    implementation(libs.mlkit.text.recognition)
 
     implementation(libs.bundles.androidx.lifecycle)
 

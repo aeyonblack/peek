@@ -25,11 +25,12 @@ android {
 
 dependencies {
 
+    implementation project(':core-text-recognition')
+
     implementation(libs.mlkit.text.recognition)
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlin.coroutines.core)
-
     implementation(libs.hilt.library)
     kapt(libs.hilt.compiler)
 }

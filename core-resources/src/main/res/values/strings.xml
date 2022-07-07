@@ -8,12 +8,16 @@
     </string>
 
     <string name="button_ok">OK</string>
-    <string name="button_save">Save Scan</string>
+    <string name="button_save">Keep</string>
 
     <string name="scan_text">Scan Text</string>
 
     <string name="scanning_text">Scanning Text</string>
     <string name="scan_results">Scan Results</string>
+    <string name="text_not_found">Text not found</string>
+    <string name="text_not_found_message">
+        No text was found from the scanned image. Retry with a different image.
+    </string>
 
     <string name="placeholder_text">
         Looking started he up perhaps against.
